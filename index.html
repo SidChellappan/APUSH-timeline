@@ -1,131 +1,412 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APUSH Full Course Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-sans); background: transparent; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .wrap { padding: 0.5rem 0 2rem; }
-
-  .header { margin-bottom: 20px; }
-  .header h2 { font-size: 18px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
-  .header p { font-size: 13px; color: var(--color-text-secondary); }
-
-  .progress-bar-wrap { background: var(--color-background-secondary); border-radius: 4px; height: 6px; margin-bottom: 20px; overflow: hidden; }
-  .progress-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #185FA5, #0F6E56); transition: width 0.4s; }
-
-  .era-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-  @media (max-width: 500px) { .era-grid { grid-template-columns: 1fr; } }
-
-  .era-btn {
-    padding: 10px 12px; border-radius: var(--border-radius-md);
-    border: 0.5px solid var(--color-border-tertiary);
-    background: var(--color-background-primary);
-    cursor: pointer; text-align: left;
-    transition: all 0.15s;
+  :root {
+    --bg: #F8F6F1;
+    --bg-card: #FFFFFF;
+    --bg-surface: #F1EDE4;
+    --text-primary: #1A1714;
+    --text-secondary: #6B6460;
+    --text-muted: #A09892;
+    --border: rgba(26,23,20,0.1);
+    --border-strong: rgba(26,23,20,0.18);
+    --accent-blue: #185FA5;
+    --accent-teal: #0F6E56;
+    --accent-amber: #854F0B;
+    --accent-red: #A32D2D;
+    --accent-purple: #3C3489;
+    --accent-gold: #C8962A;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 18px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-hover: 0 2px 8px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.06);
   }
-  .era-btn:hover { background: var(--color-background-secondary); }
-  .era-btn.done { border-color: #2D6A4F; background: #D8F3DC; }
-  .era-btn.active { border-color: #185FA5; background: #E6F1FB; }
-  .era-btn-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
-  .era-dates { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-text-tertiary); text-transform: uppercase; }
-  .era-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
-  .era-check { font-size: 14px; }
-  .era-preview { font-size: 11px; color: var(--color-text-tertiary); line-height: 1.4; margin-top: 2px; }
 
-  .card {
-    background: var(--color-background-primary);
-    border: 0.5px solid var(--color-border-tertiary);
-    border-radius: var(--border-radius-lg);
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141210;
+      --bg-card: #1E1B18;
+      --bg-surface: #252119;
+      --text-primary: #F0EBE3;
+      --text-secondary: #9A9088;
+      --text-muted: #635D58;
+      --border: rgba(240,235,227,0.08);
+      --border-strong: rgba(240,235,227,0.14);
+    }
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* HEADER */
+  .header { margin-bottom: 40px; }
+  .header-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent-amber); margin-bottom: 10px;
+  }
+  .header h1 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .header-sub {
+    font-size: 14px; color: var(--text-secondary);
+    font-weight: 300; letter-spacing: 0.01em;
+  }
+
+  /* PROGRESS */
+  .progress-section { margin-bottom: 36px; }
+  .progress-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .progress-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.05em; }
+  .progress-count { font-family: var(--serif); font-size: 16px; color: var(--text-primary); }
+  .progress-track {
+    height: 3px; background: var(--border-strong);
+    border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent-teal) 0%, var(--accent-blue) 100%);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  /* ERA GRID */
+  .era-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .era-tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px 12px;
+    cursor: pointer;
+    position: relative;
     overflow: hidden;
-    display: none;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+    animation: tileIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
   }
-  .card.active { display: block; }
+
+  .era-tile::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--tile-color, var(--accent-blue));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .era-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); }
+  .era-tile:hover::before { opacity: 1; }
+  .era-tile:active { transform: translateY(0); }
+
+  .era-tile.is-active {
+    border-color: var(--tile-color, var(--accent-blue));
+    box-shadow: var(--shadow-hover);
+  }
+  .era-tile.is-active::before { opacity: 1; }
+
+  .era-tile.is-done {
+    background: var(--bg-surface);
+  }
+  .era-tile.is-done::before { opacity: 1; background: var(--accent-teal); }
+
+  .tile-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+  .tile-dates {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .tile-check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-size: 10px;
+  }
+  .era-tile.is-done .tile-check {
+    background: var(--accent-teal);
+    border-color: var(--accent-teal);
+    color: white;
+    transform: scale(1.1);
+  }
+  .tile-name {
+    font-size: 13px; font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+  .tile-emoji { font-size: 16px; display: block; margin-bottom: 4px; }
+
+  @keyframes tileIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CARD */
+  .card-wrap { margin-top: 4px; }
+
+  .era-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    animation: cardIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .card-banner {
+    height: 4px;
+    background: var(--card-color, var(--accent-blue));
+  }
 
   .card-header {
-    padding: 16px 18px 14px;
-    border-bottom: 0.5px solid var(--color-border-tertiary);
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
-  }
-  .card-header-left {}
-  .card-era-dates { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
-  .card-era-name { font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
-  .card-emoji { font-size: 28px; flex-shrink: 0; }
-
-  .card-body { padding: 16px 18px; }
-
-  .vibe {
-    padding: 8px 12px; border-radius: var(--border-radius-md);
-    font-size: 13px; font-weight: 500; margin-bottom: 14px;
-    border-left: 3px solid;
+    padding: 24px 28px 20px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 8px; margin-top: 14px; }
-
-  .fact-list { display: flex; flex-direction: column; gap: 6px; }
-  .fact-item {
-    display: flex; gap: 10px; align-items: flex-start;
-    padding: 8px 12px;
-    background: var(--color-background-secondary);
-    border-radius: var(--border-radius-md);
-    font-size: 13px; color: var(--color-text-primary); line-height: 1.5;
+  .card-dates {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 6px;
+    color: var(--card-color, var(--accent-blue));
   }
-  .fact-icon { flex-shrink: 0; font-size: 14px; }
 
-  .exam-tip {
-    margin-top: 14px; padding: 10px 14px;
-    background: #FEF3CD; border-left: 2px solid #C8962A;
-    border-radius: 0;
-    font-size: 13px; color: #633806; line-height: 1.6;
+  .card-title {
+    font-family: var(--serif);
+    font-size: 22px; font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
   }
-  .exam-tip strong { font-weight: 600; }
 
-  .nav-row { display: flex; gap: 8px; padding: 14px 18px; border-top: 0.5px solid var(--color-border-tertiary); }
+  .card-emoji-big { font-size: 36px; flex-shrink: 0; line-height: 1; }
+
+  .card-body { padding: 24px 28px; }
+
+  .vibe-block {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--card-color, var(--accent-blue));
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    animation: fadeIn 0.4s 0.1s both;
+  }
+
+  .section-label {
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--border);
+  }
+
+  .facts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+
+  .fact {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    transition: border-color 0.2s, background 0.2s;
+    animation: factIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .fact:hover { border-color: var(--border-strong); background: var(--bg-surface); }
+
+  .fact:nth-child(1) { animation-delay: 0.05s; }
+  .fact:nth-child(2) { animation-delay: 0.1s; }
+  .fact:nth-child(3) { animation-delay: 0.15s; }
+  .fact:nth-child(4) { animation-delay: 0.2s; }
+  .fact:nth-child(5) { animation-delay: 0.25s; }
+
+  @keyframes factIn {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .fact-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .fact-text { flex: 1; }
+
+  .tip-block {
+    background: #FEF6E4;
+    border: 1px solid rgba(200,150,42,0.25);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #5A3A08;
+    line-height: 1.65;
+    animation: fadeIn 0.4s 0.3s both;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .tip-block { background: #2A2210; border-color: rgba(200,150,42,0.2); color: #D4A855; }
+  }
+
+  .tip-label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 6px;
+    color: var(--accent-gold);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* CARD NAV */
+  .card-nav {
+    display: flex; gap: 8px;
+    padding: 16px 28px;
+    border-top: 1px solid var(--border);
+  }
+
   .nav-btn {
-    flex: 1; padding: 9px; font-size: 13px; font-weight: 500;
-    border: 0.5px solid var(--color-border-secondary);
-    border-radius: var(--border-radius-md);
-    cursor: pointer; background: var(--color-background-primary);
-    color: var(--color-text-primary);
+    flex: 1; padding: 10px 14px;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transition: all 0.18s ease;
+    letter-spacing: 0.01em;
   }
-  .nav-btn:disabled { opacity: 0.3; cursor: default; }
-  .nav-btn.primary { background: #185FA5; color: #fff; border-color: #185FA5; }
-  .nav-btn.done-btn { background: #0F6E56; color: #fff; border-color: #0F6E56; }
+  .nav-btn:hover:not(:disabled) {
+    background: var(--bg-surface);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+  .nav-btn:active:not(:disabled) { transform: translateY(0); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-  .complete-screen {
-    text-align: center; padding: 32px 20px;
-    background: var(--color-background-primary);
-    border: 0.5px solid var(--color-border-tertiary);
-    border-radius: var(--border-radius-lg);
-    display: none;
+  .nav-btn.primary {
+    background: var(--accent-blue);
+    color: white; border-color: var(--accent-blue);
   }
-  .complete-screen.show { display: block; }
-  .complete-big { font-size: 48px; margin-bottom: 8px; }
-  .complete-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
-  .complete-sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 20px; line-height: 1.6; }
-  .complete-btn { display: inline-block; padding: 10px 24px; background: #185FA5; color: #fff; border-radius: var(--border-radius-md); cursor: pointer; font-size: 14px; font-weight: 500; border: none; }
+  .nav-btn.primary:hover:not(:disabled) { background: #1250880F; background: #0D4D8A; }
+
+  .nav-btn.done-action {
+    background: var(--accent-teal);
+    color: white; border-color: var(--accent-teal);
+  }
+  .nav-btn.done-action:hover:not(:disabled) { background: #0C5C47; }
+
+  .nav-btn.undo-action {
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+  }
+
+  /* COMPLETE */
+  .complete {
+    text-align: center;
+    padding: 56px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    display: none;
+    animation: cardIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  .complete.show { display: block; }
+  .complete-emoji { font-size: 52px; margin-bottom: 16px; display: block; }
+  .complete-title {
+    font-family: var(--serif);
+    font-size: 28px; font-weight: 600;
+    margin-bottom: 12px; color: var(--text-primary);
+  }
+  .complete-body {
+    font-size: 15px; color: var(--text-secondary);
+    line-height: 1.7; max-width: 380px; margin: 0 auto 28px;
+  }
+  .complete-btn {
+    display: inline-block;
+    padding: 11px 28px;
+    background: var(--accent-blue);
+    color: white; border: none; border-radius: var(--radius-sm);
+    font-family: var(--sans); font-size: 14px; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+  }
+  .complete-btn:hover { background: #0D4D8A; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(24,95,165,0.35); }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
 
   <div class="header">
-    <h2>APUSH Full Course Review</h2>
-    <p>Tap any era to review it · check it off when you're done</p>
+    <p class="header-eyebrow">AP United States History</p>
+    <h1>Full Course Review</h1>
+    <p class="header-sub">Tap any era to review · mark it done when you're ready</p>
   </div>
 
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">Progress</span>
+      <span class="progress-count" id="progressCount">0 / 15</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
   </div>
 
   <div class="era-grid" id="eraGrid"></div>
 
-  <div id="cardContainer"></div>
-  <div class="complete-screen" id="completeScreen">
-    <div class="complete-big">🎯</div>
-    <div class="complete-title">That's all of APUSH.</div>
-    <div class="complete-sub">You just ran through the entire course in under 15 minutes.<br>Pack your bag. Set your alarm for 6:05 AM. Go to bed.<br><strong>You're ready.</strong></div>
+  <div class="card-wrap" id="cardWrap"></div>
+
+  <div class="complete" id="completeScreen">
+    <span class="complete-emoji">🎯</span>
+    <p class="complete-title">That's all of APUSH.</p>
+    <p class="complete-body">You just ran through the entire course.<br>Pack your bag. Set your alarm. Go to sleep.<br><strong>You're ready.</strong></p>
     <button class="complete-btn" onclick="resetAll()">Review again</button>
   </div>
 
@@ -134,301 +415,275 @@
 <script>
 const eras = [
   {
-    dates: "Pre-1607",
-    name: "Pre-Contact & Contact",
-    emoji: "🌎",
-    color: "#6B4226",
-    vibe: "Native Americans had complex, diverse societies. Then Columbus showed up and everything changed.",
-    vibeBg: "#F5EDE7",
-    facts: [
-      { icon: "🏛️", text: "Native Americans developed distinct, complex societies shaped by their environments — not primitive as Europeans assumed" },
-      { icon: "🦠", text: "Columbian Exchange: Europe got corn and potatoes; Americas got smallpox, measles, and horses — disease wiped out up to 90% of some Native populations" },
-      { icon: "⛓️", text: "Spanish used the encomienda system — forced Native labor on land grants. Columbus explicitly wrote about subjugating them" },
-      { icon: "🗺️", text: "Key distinction: Spanish colonized Latin America with conquest and forced labor; English colonized North America with settlement" }
+    dates:"Pre-1607", name:"Pre-Contact & Contact", emoji:"🌎", color:"#6B4226",
+    vibe:"Native Americans had complex, diverse societies. Then Columbus showed up and everything changed.",
+    facts:[
+      {icon:"🏛️",text:"Native Americans developed distinct, complex societies shaped by their environments — not primitive as Europeans assumed"},
+      {icon:"🦠",text:"Columbian Exchange: Europe got corn and potatoes; Americas got smallpox, measles, and horses — disease wiped out up to 90% of some Native populations"},
+      {icon:"⛓️",text:"Spanish used the encomienda system — forced Native labor on land grants. Columbus explicitly wrote about subjugating them"},
+      {icon:"🗺️",text:"Key distinction: Spanish colonized Latin America with conquest and forced labor; English colonized North America with settlement"}
     ],
-    tip: "If you see Columbus or early contact, the answer almost always involves disease, encomienda, or Native complexity being ignored by Europeans."
+    tip:"If you see Columbus or early contact, the answer almost always involves disease, encomienda, or Native complexity being ignored by Europeans."
   },
   {
-    dates: "1607–1754",
-    name: "Colonial Era",
-    emoji: "⛵",
-    color: "#185FA5",
-    vibe: "Three very different colonial regions developing side by side — and Britain mostly leaving them alone.",
-    vibeBg: "#E6F1FB",
-    facts: [
-      { icon: "🌿", text: "Chesapeake (Virginia, Maryland): tobacco economy → indentured servants → African slavery as labor supply. Bacon's Rebellion 1676 scared elites into preferring enslaved people over restless servants" },
-      { icon: "⛪", text: "New England: Puritans seeking religious purity. Mayflower Compact, town meetings, self-governance baked in from the start" },
-      { icon: "💰", text: "Middle Colonies: most diverse — religious tolerance, mixed economy, breadbasket of the colonies" },
-      { icon: "😴", text: "Salutary neglect: Britain left colonies largely alone → colonists develop independent identity and self-governing habits" },
-      { icon: "🙏", text: "First Great Awakening: challenged religious hierarchy, spread idea that individuals could have direct relationship with God — foreshadowed political egalitarianism" }
+    dates:"1607–1754", name:"Colonial Era", emoji:"⛵", color:"#185FA5",
+    vibe:"Three very different colonial regions developing side by side — and Britain mostly leaving them alone.",
+    facts:[
+      {icon:"🌿",text:"Chesapeake (Virginia, Maryland): tobacco economy → indentured servants → African slavery as labor supply. Bacon's Rebellion 1676 scared elites into preferring enslaved people over restless servants"},
+      {icon:"⛪",text:"New England: Puritans seeking religious purity. Mayflower Compact, town meetings, self-governance baked in from the start"},
+      {icon:"💰",text:"Middle Colonies: most diverse — religious tolerance, mixed economy, breadbasket of the colonies"},
+      {icon:"😴",text:"Salutary neglect: Britain left colonies largely alone → colonists develop independent identity and self-governing habits"},
+      {icon:"🙏",text:"First Great Awakening: challenged religious hierarchy, spread idea that individuals could have direct relationship with God — foreshadowed political egalitarianism"}
     ],
-    tip: "Know the three regions cold. Any question about colonial differences is testing whether you know Chesapeake = slavery/tobacco, New England = Puritans/self-governance, Middle = diversity."
+    tip:"Know the three regions cold. Any question about colonial differences is testing whether you know Chesapeake = slavery/tobacco, New England = Puritans/self-governance, Middle = diversity."
   },
   {
-    dates: "1754–1800",
-    name: "Revolution & Founding",
-    emoji: "🦅",
-    color: "#0F6E56",
-    vibe: "From loyal British subjects to independent nation in 20 years. Enlightenment ideas meet colonial grievances.",
-    vibeBg: "#D8F3DC",
-    facts: [
-      { icon: "💸", text: "French & Indian War ends salutary neglect — Britain needs money → taxes colonists → 'no taxation without representation' → Revolution" },
-      { icon: "📜", text: "Declaration = Enlightenment (Locke's natural rights: life, liberty, property). All men created equal — but enslaved people and women weren't included" },
-      { icon: "😬", text: "Articles of Confederation: too weak — no power to tax, no national army, no control over interstate commerce. Shays' Rebellion exposed it" },
-      { icon: "🏛️", text: "Constitution: separation of powers, checks and balances, federalism. Federalists (Hamilton) vs Anti-Federalists (wanted Bill of Rights first)" },
-      { icon: "⚖️", text: "Federalist No. 51 (Madison): factions control each other in a large republic. The system protects minority rights through competing interests" }
+    dates:"1754–1800", name:"Revolution & Founding", emoji:"🦅", color:"#0F6E56",
+    vibe:"From loyal British subjects to independent nation in 20 years. Enlightenment ideas meet colonial grievances.",
+    facts:[
+      {icon:"💸",text:"French & Indian War ends salutary neglect — Britain needs money → taxes colonists → 'no taxation without representation' → Revolution"},
+      {icon:"📜",text:"Declaration = Enlightenment (Locke's natural rights: life, liberty, property). All men created equal — but enslaved people and women weren't included"},
+      {icon:"😬",text:"Articles of Confederation: too weak — no power to tax, no national army, no control over interstate commerce. Shays' Rebellion exposed it"},
+      {icon:"🏛️",text:"Constitution: separation of powers, checks and balances, federalism. Federalists (Hamilton) vs Anti-Federalists (wanted Bill of Rights first)"},
+      {icon:"⚖️",text:"Federalist No. 51 (Madison): factions control each other in a large republic. The system protects minority rights through competing interests"}
     ],
-    tip: "The AP loves the contradiction between revolutionary ideals ('all men created equal') and the reality (slavery, women excluded). Always note that gap."
+    tip:"The AP loves the contradiction between revolutionary ideals ('all men created equal') and the reality (slavery, women excluded). Always note that gap."
   },
   {
-    dates: "1800–1848",
-    name: "Early Republic & Jacksonian Era",
-    emoji: "🪓",
-    color: "#7D5A0A",
-    vibe: "Democracy expands — for white men. Everyone else gets left behind as America pushes westward.",
-    vibeBg: "#FEF3CD",
-    facts: [
-      { icon: "🏭", text: "Market Revolution: transportation improvements (Erie Canal, railroads, steamboats) + industrialization = national market economy. Lowell Mill Girls = early labor organizing" },
-      { icon: "🗳️", text: "Jacksonian Democracy: expanded voting rights for white men without property. Jackson = 'common man' but also Indian removal and slaveholder" },
-      { icon: "🏕️", text: "Indian Removal Act 1830 → Trail of Tears. Thousands of Cherokee died. Federal government forcibly displaced Native peoples westward" },
-      { icon: "⚖️", text: "Missouri Compromise 1820: Missouri = slave, Maine = free, 36°30' line. Jefferson called it 'a fire bell in the night' — kicks slavery debate down the road" },
-      { icon: "✊", text: "Second Great Awakening fuels reform: abolition movement grows, Seneca Falls Convention 1848 (women's rights), temperance, mental health reform" }
+    dates:"1800–1848", name:"Early Republic & Jacksonian Era", emoji:"🪓", color:"#7D5A0A",
+    vibe:"Democracy expands — for white men. Everyone else gets left behind as America pushes westward.",
+    facts:[
+      {icon:"🏭",text:"Market Revolution: transportation improvements (Erie Canal, railroads, steamboats) + industrialization = national market economy. Lowell Mill Girls = early labor organizing"},
+      {icon:"🗳️",text:"Jacksonian Democracy: expanded voting rights for white men without property. Jackson = 'common man' but also Indian removal and slaveholder"},
+      {icon:"🏕️",text:"Indian Removal Act 1830 → Trail of Tears. Thousands of Cherokee died. Federal government forcibly displaced Native peoples westward"},
+      {icon:"⚖️",text:"Missouri Compromise 1820: Missouri = slave, Maine = free, 36°30' line. Jefferson called it 'a fire bell in the night' — kicks slavery debate down the road"},
+      {icon:"✊",text:"Second Great Awakening fuels reform: abolition movement grows, Seneca Falls Convention 1848 (women's rights), temperance, mental health reform"}
     ],
-    tip: "Jacksonian Democracy is complicated — expanding democracy AND oppressing Native Americans AND defending slavery simultaneously. The AP loves this contradiction."
+    tip:"Jacksonian Democracy is complicated — expanding democracy AND oppressing Native Americans AND defending slavery simultaneously. The AP loves this contradiction."
   },
   {
-    dates: "1848–1865",
-    name: "Antebellum & Civil War",
-    emoji: "⚔️",
-    color: "#A32D2D",
-    vibe: "Every new territory rips the country apart a little more. The compromise era ends. War is inevitable.",
-    vibeBg: "#FCEBEB",
-    facts: [
-      { icon: "🗺️", text: "Mexican-American War adds massive territory → immediately raises: will new states be slave or free? Wilmot Proviso, Compromise of 1850, Kansas-Nebraska Act all attempt to answer this" },
-      { icon: "🩸", text: "Bleeding Kansas: pro-slavery and anti-slavery settlers flood Kansas to control the vote. Violence breaks out — preview of Civil War" },
-      { icon: "⚖️", text: "Dred Scott 1857: Supreme Court says enslaved people are property, not citizens, and Congress can't ban slavery anywhere. Completely inflames the North" },
-      { icon: "🗳️", text: "Lincoln elected 1860 on platform of stopping slavery's expansion (not abolition) → Southern states secede → Civil War" },
-      { icon: "📜", text: "Emancipation Proclamation 1863: frees enslaved people in Confederate states only. Reframes the war as being about slavery, prevents Britain from supporting Confederacy" }
+    dates:"1848–1865", name:"Antebellum & Civil War", emoji:"⚔️", color:"#A32D2D",
+    vibe:"Every new territory rips the country apart a little more. The compromise era ends. War is inevitable.",
+    facts:[
+      {icon:"🗺️",text:"Mexican-American War adds massive territory → immediately raises: will new states be slave or free? Wilmot Proviso, Compromise of 1850, Kansas-Nebraska Act all attempt to answer this"},
+      {icon:"🩸",text:"Bleeding Kansas: pro-slavery and anti-slavery settlers flood Kansas to control the vote. Violence breaks out — preview of Civil War"},
+      {icon:"⚖️",text:"Dred Scott 1857: Supreme Court says enslaved people are property, not citizens, and Congress can't ban slavery anywhere. Completely inflames the North"},
+      {icon:"🗳️",text:"Lincoln elected 1860 on platform of stopping slavery's expansion (not abolition) → Southern states secede → Civil War"},
+      {icon:"📜",text:"Emancipation Proclamation 1863: frees enslaved people in Confederate states only. Reframes the war as being about slavery, prevents Britain from supporting Confederacy"}
     ],
-    tip: "The Civil War was caused by slavery. Full stop. States' rights arguments were used to defend the right to enslave people. The AP expects you to make this connection explicitly."
+    tip:"The Civil War was caused by slavery. Full stop. States' rights arguments were used to defend the right to enslave people. The AP expects you to make this connection explicitly."
   },
   {
-    dates: "1865–1877",
-    name: "Reconstruction",
-    emoji: "🔨",
-    color: "#3C3489",
-    vibe: "A genuine attempt to remake Southern society. It almost worked — then the federal government gave up.",
-    vibeBg: "#EEEDFE",
-    facts: [
-      { icon: "📜", text: "13th (abolished slavery), 14th (citizenship + equal protection), 15th (Black male suffrage) Amendments — the Reconstruction Amendments that the South would spend the next century undermining" },
-      { icon: "🏫", text: "Freedmen's Bureau: education, legal aid, labor contracts for formerly enslaved people. Black men elected to Congress. Real political change — briefly." },
-      { icon: "😈", text: "Backlash: Black Codes immediately restricted Black freedom. KKK used terror. Sharecropping replaced slavery economically — different name, same trap" },
-      { icon: "🤝", text: "Compromise of 1877: Hayes gets presidency, federal troops leave South → Reconstruction ends. Jim Crow begins. The gains are systematically dismantled" },
-      { icon: "📚", text: "Plessy v Ferguson 1896: 'separate but equal' — Supreme Court legitimizes segregation for the next 58 years" }
+    dates:"1865–1877", name:"Reconstruction", emoji:"🔨", color:"#3C3489",
+    vibe:"A genuine attempt to remake Southern society. It almost worked — then the federal government gave up.",
+    facts:[
+      {icon:"📜",text:"13th (abolished slavery), 14th (citizenship + equal protection), 15th (Black male suffrage) Amendments — the Reconstruction Amendments that the South would spend the next century undermining"},
+      {icon:"🏫",text:"Freedmen's Bureau: education, legal aid, labor contracts for formerly enslaved people. Black men elected to Congress. Real political change — briefly."},
+      {icon:"😈",text:"Backlash: Black Codes immediately restricted Black freedom. KKK used terror. Sharecropping replaced slavery economically — different name, same trap"},
+      {icon:"🤝",text:"Compromise of 1877: Hayes gets presidency, federal troops leave South → Reconstruction ends. Jim Crow begins. The gains are systematically dismantled"},
+      {icon:"📚",text:"Plessy v Ferguson 1896: 'separate but equal' — Supreme Court legitimizes segregation for the next 58 years"}
     ],
-    tip: "Reconstruction is a story of change AND failure. The amendments changed law; the withdrawal of federal enforcement meant those changes didn't stick. Show both sides."
+    tip:"Reconstruction is a story of change AND failure. The amendments changed law; the withdrawal of federal enforcement meant those changes didn't stick. Show both sides."
   },
   {
-    dates: "1877–1900",
-    name: "Gilded Age",
-    emoji: "🏭",
-    color: "#185FA5",
-    vibe: "America gets filthy rich. A few people anyway. Everyone else organizes to fight back.",
-    vibeBg: "#E6F1FB",
-    facts: [
-      { icon: "💰", text: "Industrialization explodes: railroads, steel, oil. Carnegie, Rockefeller, JP Morgan = robber barons. Trusts and monopolies crush competition" },
-      { icon: "😴", text: "Laissez-faire government: social Darwinism justifies inequality — the wealthy are wealthy because they're superior. Government stays out." },
-      { icon: "✊", text: "Labor fights back: Knights of Labor, American Federation of Labor (Gompers), Haymarket Riot 1886, Pullman Strike 1894. Government sides with business every time." },
-      { icon: "🌾", text: "Farmers organize: Grange → Farmers' Alliances → Populist Party 1892. Demands: silver coinage, direct election of senators, graduated income tax. Bryan loses 1896 → Populism collapses" },
-      { icon: "🌍", text: "Imperialism begins: Spanish-American War 1898 → Philippines, Guam, Puerto Rico, Cuba. Josiah Strong = Social Darwinism + Anglo-Saxon superiority = God's plan to expand" }
+    dates:"1877–1900", name:"Gilded Age", emoji:"🏭", color:"#185FA5",
+    vibe:"America gets filthy rich. A few people anyway. Everyone else organizes to fight back.",
+    facts:[
+      {icon:"💰",text:"Industrialization explodes: railroads, steel, oil. Carnegie, Rockefeller, JP Morgan = robber barons. Trusts and monopolies crush competition"},
+      {icon:"😴",text:"Laissez-faire government: social Darwinism justifies inequality — the wealthy are wealthy because they're superior. Government stays out."},
+      {icon:"✊",text:"Labor fights back: Knights of Labor, American Federation of Labor (Gompers), Haymarket Riot 1886, Pullman Strike 1894. Government sides with business every time."},
+      {icon:"🌾",text:"Farmers organize: Grange → Farmers' Alliances → Populist Party 1892. Demands: silver coinage, direct election of senators, graduated income tax. Bryan loses 1896 → Populism collapses"},
+      {icon:"🌍",text:"Imperialism begins: Spanish-American War 1898 → Philippines, Guam, Puerto Rico, Cuba. Josiah Strong = Social Darwinism + Anglo-Saxon superiority = God's plan to expand"}
     ],
-    tip: "Social Darwinism is the Gilded Age's big idea. Any source with racial hierarchy + expansion + Anglo-Saxon superiority = Social Darwinism. Don't confuse with eugenics or self-determination."
+    tip:"Social Darwinism is the Gilded Age's big idea. Any source with racial hierarchy + expansion + Anglo-Saxon superiority = Social Darwinism. Don't confuse with eugenics or self-determination."
   },
   {
-    dates: "1900–1920",
-    name: "Progressive Era & WWI",
-    emoji: "📰",
-    color: "#0F6E56",
-    vibe: "Reformers attack the corruption of the Gilded Age. Then WWI pulls America into global politics.",
-    vibeBg: "#D8F3DC",
-    facts: [
-      { icon: "📝", text: "Muckrakers expose everything: Upton Sinclair (The Jungle → meat industry), Ida Tarbell (Standard Oil), Jacob Riis (urban poverty). Public pressure forces reform" },
-      { icon: "🏛️", text: "Four amendments in one decade: 16th (income tax), 17th (direct election of senators), 18th (Prohibition), 19th (women's suffrage). Government finally responds to Populist demands" },
-      { icon: "🐻", text: "TR trustbusting, FDA, national parks. Taft continues antitrust. Wilson = Federal Reserve 1913, Clayton Antitrust Act. Government intervention becomes normal." },
-      { icon: "⚔️", text: "WWI: America stays neutral until 1917. Zimmermann Telegram + unrestricted submarine warfare → entry. Espionage & Sedition Acts suppress dissent at home" },
-      { icon: "✈️", text: "Great Migration begins: Black Americans leave Jim Crow South for Northern cities seeking factory jobs and freedom. Harlem Renaissance emerges from this." }
+    dates:"1900–1920", name:"Progressive Era & WWI", emoji:"📰", color:"#0F6E56",
+    vibe:"Reformers attack the corruption of the Gilded Age. Then WWI pulls America into global politics.",
+    facts:[
+      {icon:"📝",text:"Muckrakers expose everything: Upton Sinclair (The Jungle → meat industry), Ida Tarbell (Standard Oil), Jacob Riis (urban poverty). Public pressure forces reform"},
+      {icon:"🏛️",text:"Four amendments in one decade: 16th (income tax), 17th (direct election of senators), 18th (Prohibition), 19th (women's suffrage). Government finally responds to Populist demands"},
+      {icon:"🐻",text:"TR trustbusting, FDA, national parks. Taft continues antitrust. Wilson = Federal Reserve 1913, Clayton Antitrust Act. Government intervention becomes normal."},
+      {icon:"⚔️",text:"WWI: America stays neutral until 1917. Zimmermann Telegram + unrestricted submarine warfare → entry. Espionage & Sedition Acts suppress dissent at home"},
+      {icon:"✈️",text:"Great Migration begins: Black Americans leave Jim Crow South for Northern cities seeking factory jobs and freedom. Harlem Renaissance emerges from this."}
     ],
-    tip: "Booker T. Washington (economic self-improvement, accept segregation for now) vs W.E.B. Du Bois (demand full rights immediately, Niagara Movement → NAACP). The AP loves this debate."
+    tip:"Booker T. Washington (economic self-improvement, accept segregation for now) vs W.E.B. Du Bois (demand full rights immediately, Niagara Movement → NAACP). The AP loves this debate."
   },
   {
-    dates: "1920–1932",
-    name: "Roaring Twenties",
-    emoji: "🎷",
-    color: "#7D5A0A",
-    vibe: "America parties after WWI. New culture, new technology, new tensions — and a crash coming.",
-    vibeBg: "#FEF3CD",
-    facts: [
-      { icon: "🏠", text: "Return to normalcy: Harding, Coolidge. High tariffs, low regulation, laissez-faire again. Business booms — but wages don't keep up with productivity" },
-      { icon: "💃", text: "Mass consumerism: cars, radios, movies, credit. Flappers challenge gender norms. Harlem Renaissance: jazz, Langston Hughes, new Black cultural identity" },
-      { icon: "😠", text: "Nativism surges: Emergency Quota Act 1921 slashes immigration, especially from Southern/Eastern Europe. KKK revival hits 4 million members. Sacco & Vanzetti." },
-      { icon: "📈", text: "Stock market speculation on credit + overproduction + weak agricultural sector + bank fragility = time bomb. October 1929 — it goes off." },
-      { icon: "🌊", text: "Smoot-Hawley Tariff 1930: raised tariffs to protect US industries → other countries retaliate → global trade collapses → Depression worsens" }
+    dates:"1920–1932", name:"Roaring Twenties", emoji:"🎷", color:"#7D5A0A",
+    vibe:"America parties after WWI. New culture, new technology, new tensions — and a crash coming.",
+    facts:[
+      {icon:"🏠",text:"Return to normalcy: Harding, Coolidge. High tariffs, low regulation, laissez-faire again. Business booms — but wages don't keep up with productivity"},
+      {icon:"💃",text:"Mass consumerism: cars, radios, movies, credit. Flappers challenge gender norms. Harlem Renaissance: jazz, Langston Hughes, new Black cultural identity"},
+      {icon:"😠",text:"Nativism surges: Emergency Quota Act 1921 slashes immigration, especially from Southern/Eastern Europe. KKK revival hits 4 million members. Sacco & Vanzetti."},
+      {icon:"📈",text:"Stock market speculation on credit + overproduction + weak agricultural sector + bank fragility = time bomb. October 1929 — it goes off."},
+      {icon:"🌊",text:"Smoot-Hawley Tariff 1930: raised tariffs to protect US industries → other countries retaliate → global trade collapses → Depression worsens"}
     ],
-    tip: "The 1920s looks like prosperity but it's built on sand. The AP loves asking why the Depression happened — overproduction, stock speculation on margin, bank failures, Smoot-Hawley."
+    tip:"The 1920s looks like prosperity but it's built on sand. The AP loves asking why the Depression happened — overproduction, stock speculation on margin, bank failures, Smoot-Hawley."
   },
   {
-    dates: "1929–1939",
-    name: "Great Depression & New Deal",
-    emoji: "📉",
-    color: "#A32D2D",
-    vibe: "The worst economic crisis in American history forces a permanent rethink of what government is for.",
-    vibeBg: "#FCEBEB",
-    facts: [
-      { icon: "😰", text: "Hoover: believed in voluntarism and limited government. Did too little too late. Bonus Army marches on DC — Hoover evicts them with force. Political disaster." },
-      { icon: "💪", text: "FDR's New Deal: Three Rs — Relief (immediate aid), Recovery (get economy moving), Reform (prevent future crashes). CCC, WPA, FDIC, SEC, Social Security, Wagner Act." },
-      { icon: "⚖️", text: "New Deal debate: critics from left (Huey Long — not enough) and right (Liberty League — too much government). FDR tries to pack Supreme Court → backlash" },
-      { icon: "📊", text: "New Deal = moderate impact on Depression. Unemployment still ~15% in 1940. GDP recovered slowly then dipped again in 1937. WWII mobilization is what actually ended it." },
-      { icon: "🏛️", text: "Legacy: permanently expanded federal government's role. Americans now expected government to manage the economy and provide social safety net. No going back." }
+    dates:"1929–1939", name:"Great Depression & New Deal", emoji:"📉", color:"#A32D2D",
+    vibe:"The worst economic crisis in American history forces a permanent rethink of what government is for.",
+    facts:[
+      {icon:"😰",text:"Hoover: believed in voluntarism and limited government. Did too little too late. Bonus Army marches on DC — Hoover evicts them with force. Political disaster."},
+      {icon:"💪",text:"FDR's New Deal: Three Rs — Relief (immediate aid), Recovery (get economy moving), Reform (prevent future crashes). CCC, WPA, FDIC, SEC, Social Security, Wagner Act."},
+      {icon:"⚖️",text:"New Deal debate: critics from left (Huey Long — not enough) and right (Liberty League — too much government). FDR tries to pack Supreme Court → backlash"},
+      {icon:"📊",text:"New Deal = moderate impact on Depression. Unemployment still ~15% in 1940. GDP recovered slowly then dipped again in 1937. WWII mobilization is what actually ended it."},
+      {icon:"🏛️",text:"Legacy: permanently expanded federal government's role. Americans now expected government to manage the economy and provide social safety net. No going back."}
     ],
-    tip: "The single most tested fact: the New Deal did NOT end the Depression. WWII did. The graph question on your practice exam tested exactly this. Don't forget it."
+    tip:"The single most tested fact: the New Deal did NOT end the Depression. WWII did. Don't forget it."
   },
   {
-    dates: "1939–1945",
-    name: "World War II",
-    emoji: "✈️",
-    color: "#3C3489",
-    vibe: "America reluctantly enters the war and emerges as the world's superpower. Nothing is the same after.",
-    vibeBg: "#EEEDFE",
-    facts: [
-      { icon: "🕊️", text: "Isolationism strong until Pearl Harbor Dec 7, 1941. Neutrality Acts tried to keep America out. Lend-Lease helped Britain before US entry." },
-      { icon: "🏭", text: "War mobilization ends the Depression instantly: unemployment drops to 1%, GDP explodes, women enter workforce (Rosie the Riveter), industrial production soars" },
-      { icon: "⚡", text: "Japanese American internment: 120,000 Japanese Americans imprisoned. Directly contradicted FDR's Four Freedoms. Korematsu v US (1944) upheld it — later reversed." },
-      { icon: "✊", text: "Double V campaign: Black Americans fight fascism abroad AND racism at home. Military remains segregated. A. Philip Randolph threatens march on DC → FDR desegregates defense industries" },
-      { icon: "🌍", text: "After WWII: America is THE global superpower. Marshall Plan rebuilds Europe. UN formed. Cold War begins immediately with Soviet Union." }
+    dates:"1939–1945", name:"World War II", emoji:"✈️", color:"#3C3489",
+    vibe:"America reluctantly enters the war and emerges as the world's superpower. Nothing is the same after.",
+    facts:[
+      {icon:"🕊️",text:"Isolationism strong until Pearl Harbor Dec 7, 1941. Neutrality Acts tried to keep America out. Lend-Lease helped Britain before US entry."},
+      {icon:"🏭",text:"War mobilization ends the Depression instantly: unemployment drops to 1%, GDP explodes, women enter workforce (Rosie the Riveter), industrial production soars"},
+      {icon:"⚡",text:"Japanese American internment: 120,000 Japanese Americans imprisoned. Directly contradicted FDR's Four Freedoms. Korematsu v US (1944) upheld it — later reversed."},
+      {icon:"✊",text:"Double V campaign: Black Americans fight fascism abroad AND racism at home. Military remains segregated. A. Philip Randolph threatens march on DC → FDR desegregates defense industries"},
+      {icon:"🌍",text:"After WWII: America is THE global superpower. Marshall Plan rebuilds Europe. UN formed. Cold War begins immediately with Soviet Union."}
     ],
-    tip: "WWII has two contradictions the AP loves: 1) Fighting for freedom while interning Japanese Americans 2) Fighting fascism while maintaining racial segregation at home."
+    tip:"WWII has two contradictions the AP loves: 1) Fighting for freedom while interning Japanese Americans 2) Fighting fascism while maintaining racial segregation at home."
   },
   {
-    dates: "1945–1960",
-    name: "Early Cold War",
-    emoji: "☢️",
-    color: "#185FA5",
-    vibe: "America on top of the world — but terrified of communism, both abroad and next door.",
-    vibeBg: "#E6F1FB",
-    facts: [
-      { icon: "🌍", text: "Truman Doctrine: US will support free peoples resisting communism anywhere. Marshall Plan: $13 billion to rebuild Western Europe. NATO formed 1949." },
-      { icon: "🇰🇷", text: "Korean War 1950-53: first hot war of Cold War. Ends in stalemate at 38th parallel. Truman fires MacArthur for insubordination — civilian control of military." },
-      { icon: "😱", text: "McCarthyism: Senator McCarthy claims communists in government. House Un-American Activities Committee (HUAC). Hollywood blacklist. Fear and conformity everywhere." },
-      { icon: "🏡", text: "GI Bill → suburbs → Levittown. Baby boom. Mass consumerism. Television. Conformity culture — but underneath: Beats, early rock & roll, tensions building" },
-      { icon: "⚖️", text: "Brown v Board of Education 1954: separate is inherently unequal. Overturns Plessy. Southern states resist. Little Rock 1957 — Eisenhower sends troops." }
+    dates:"1945–1960", name:"Early Cold War", emoji:"☢️", color:"#185FA5",
+    vibe:"America on top of the world — but terrified of communism, both abroad and next door.",
+    facts:[
+      {icon:"🌍",text:"Truman Doctrine: US will support free peoples resisting communism anywhere. Marshall Plan: $13 billion to rebuild Western Europe. NATO formed 1949."},
+      {icon:"🇰🇷",text:"Korean War 1950-53: first hot war of Cold War. Ends in stalemate at 38th parallel. Truman fires MacArthur for insubordination — civilian control of military."},
+      {icon:"😱",text:"McCarthyism: Senator McCarthy claims communists in government. House Un-American Activities Committee (HUAC). Hollywood blacklist. Fear and conformity everywhere."},
+      {icon:"🏡",text:"GI Bill → suburbs → Levittown. Baby boom. Mass consumerism. Television. Conformity culture — but underneath: Beats, early rock & roll, tensions building"},
+      {icon:"⚖️",text:"Brown v Board of Education 1954: separate is inherently unequal. Overturns Plessy. Southern states resist. Little Rock 1957 — Eisenhower sends troops."}
     ],
-    tip: "Trust in government peaks at 75% around 1964 (before Vietnam/Watergate). Remember this number — that graph question is exactly what the AP tests."
+    tip:"Trust in government peaks at 75% around 1964 (before Vietnam/Watergate). Remember this number — that graph question is exactly what the AP tests."
   },
   {
-    dates: "1960–1973",
-    name: "Civil Rights & Great Society",
-    emoji: "✊",
-    color: "#0F6E56",
-    vibe: "The most transformative decade in American history. Everything changes. Then Vietnam breaks it apart.",
-    vibeBg: "#D8F3DC",
-    facts: [
-      { icon: "✊", text: "Civil Rights Movement: sit-ins, freedom rides, Birmingham, March on Washington 1963. MLK's nonviolence strategy → massive public support and legislative pressure" },
-      { icon: "📜", text: "Civil Rights Act 1964 (banned discrimination), Voting Rights Act 1965 (protected Black voting rights). LBJ's Great Society: Medicare, Medicaid, federal education funding, immigration reform" },
-      { icon: "🔥", text: "Malcolm X and Black Power challenge nonviolence. Kerner Commission 1968: 'two societies, separate and unequal.' Urban riots — Detroit, Newark, LA." },
-      { icon: "🇻🇳", text: "Vietnam: Gulf of Tonkin Resolution gives LBJ blank check. Escalation → 58,000 American deaths. Tet Offensive 1968 destroys public support. Anti-war movement explodes." },
-      { icon: "😢", text: "1968: MLK assassinated, RFK assassinated, Democratic convention riots, Nixon elected. The optimism of the early 60s is completely gone." }
+    dates:"1960–1973", name:"Civil Rights & Great Society", emoji:"✊", color:"#0F6E56",
+    vibe:"The most transformative decade in American history. Everything changes. Then Vietnam breaks it apart.",
+    facts:[
+      {icon:"✊",text:"Civil Rights Movement: sit-ins, freedom rides, Birmingham, March on Washington 1963. MLK's nonviolence strategy → massive public support and legislative pressure"},
+      {icon:"📜",text:"Civil Rights Act 1964 (banned discrimination), Voting Rights Act 1965 (protected Black voting rights). LBJ's Great Society: Medicare, Medicaid, federal education funding, immigration reform"},
+      {icon:"🔥",text:"Malcolm X and Black Power challenge nonviolence. Kerner Commission 1968: 'two societies, separate and unequal.' Urban riots — Detroit, Newark, LA."},
+      {icon:"🇻🇳",text:"Vietnam: Gulf of Tonkin Resolution gives LBJ blank check. Escalation → 58,000 American deaths. Tet Offensive 1968 destroys public support. Anti-war movement explodes."},
+      {icon:"😢",text:"1968: MLK assassinated, RFK assassinated, Democratic convention riots, Nixon elected. The optimism of the early 60s is completely gone."}
     ],
-    tip: "Civil Rights is full of internal debates — MLK vs Malcolm X vs Black Power. The AP loves asking which strategy most directly led to specific legislation or developments."
+    tip:"Civil Rights is full of internal debates — MLK vs Malcolm X vs Black Power. The AP loves asking which strategy most directly led to specific legislation or developments."
   },
   {
-    dates: "1973–1988",
-    name: "Crisis & Conservative Revolution",
-    emoji: "🦁",
-    color: "#A32D2D",
-    vibe: "Trust in government collapses. America turns right. Reagan tells everyone government is the problem.",
-    vibeBg: "#FCEBEB",
-    facts: [
-      { icon: "🔓", text: "Watergate: Nixon's team breaks into Democratic headquarters, Nixon covers it up. Resigns 1974. Trust in government drops from 75% to 25% in one decade." },
-      { icon: "💸", text: "Stagflation: high inflation + high unemployment simultaneously in the 1970s. Carter can't fix it. Iran hostage crisis. America feels humiliated and adrift." },
-      { icon: "🤝", text: "Nixon's détente: reduced Cold War tensions, opened China, SALT arms treaties. Contradicts hardline anti-communism but reflects pragmatism." },
-      { icon: "🦁", text: "Reagan Revolution 1980: 'government is not the solution — it's the problem.' Supply-side economics (trickle-down), tax cuts, deregulation, military buildup vs Soviet Union." },
-      { icon: "🌍", text: "Reagan Doctrine: fund anti-communist rebels worldwide — Contras in Nicaragua, mujahideen in Afghanistan. Iran-Contra scandal follows." }
+    dates:"1973–1988", name:"Crisis & Conservative Revolution", emoji:"🦁", color:"#A32D2D",
+    vibe:"Trust in government collapses. America turns right. Reagan tells everyone government is the problem.",
+    facts:[
+      {icon:"🔓",text:"Watergate: Nixon's team breaks into Democratic headquarters, Nixon covers it up. Resigns 1974. Trust in government drops from 75% to 25% in one decade."},
+      {icon:"💸",text:"Stagflation: high inflation + high unemployment simultaneously in the 1970s. Carter can't fix it. Iran hostage crisis. America feels humiliated and adrift."},
+      {icon:"🤝",text:"Nixon's détente: reduced Cold War tensions, opened China, SALT arms treaties. Contradicts hardline anti-communism but reflects pragmatism."},
+      {icon:"🦁",text:"Reagan Revolution 1980: 'government is not the solution — it's the problem.' Supply-side economics (trickle-down), tax cuts, deregulation, military buildup vs Soviet Union."},
+      {icon:"🌍",text:"Reagan Doctrine: fund anti-communist rebels worldwide — Contras in Nicaragua, mujahideen in Afghanistan. Iran-Contra scandal follows."}
     ],
-    tip: "The decline in government trust from 1964-1978 directly caused conservatism's rise. When people don't trust government → they vote for candidates who promise to shrink it → Reagan."
+    tip:"The decline in government trust from 1964-1978 directly caused conservatism's rise. When people don't trust government → they vote for candidates who promise to shrink it → Reagan."
   },
   {
-    dates: "1988–Present",
-    name: "Post-Cold War & Modern Era",
-    emoji: "🌐",
-    color: "#3C3489",
-    vibe: "Soviet Union falls. America is the only superpower. Then 9/11 changes everything again.",
-    vibeBg: "#EEEDFE",
-    facts: [
-      { icon: "🧱", text: "Soviet Union collapses 1991. Cold War over. America is the sole superpower. Bush Sr leads Gulf War coalition — liberates Kuwait, stops short of Baghdad." },
-      { icon: "💻", text: "1990s: Clinton era — tech boom, budget surplus, welfare reform. NAFTA opens trade. Immigration from Latin America and Asia surges after 1965 Immigration Act changes who can come." },
-      { icon: "💥", text: "9/11 2001: parallel to Pearl Harbor in national shock. But unlike WWII — no call for shared sacrifice. Bush cuts taxes, starts two wars on credit. Patriot Act expands surveillance." },
-      { icon: "⚖️", text: "Patriot Act debate: national security vs civil liberties. Opponents argue it violates 4th Amendment protections. Same tension as Espionage Act (WWI) and Japanese internment (WWII)." },
-      { icon: "📉", text: "Trust in government hits 19% by 2015. Polarization. The pattern: crisis → government expands → backlash → distrust → conservatism. Has repeated since the 1960s." }
+    dates:"1988–Present", name:"Post-Cold War & Modern Era", emoji:"🌐", color:"#3C3489",
+    vibe:"Soviet Union falls. America is the only superpower. Then 9/11 changes everything again.",
+    facts:[
+      {icon:"🧱",text:"Soviet Union collapses 1991. Cold War over. America is the sole superpower. Bush Sr leads Gulf War coalition — liberates Kuwait, stops short of Baghdad."},
+      {icon:"💻",text:"1990s: Clinton era — tech boom, budget surplus, welfare reform. NAFTA opens trade. Immigration from Latin America and Asia surges after 1965 Immigration Act changes who can come."},
+      {icon:"💥",text:"9/11 2001: parallel to Pearl Harbor in national shock. But unlike WWII — no call for shared sacrifice. Bush cuts taxes, starts two wars on credit. Patriot Act expands surveillance."},
+      {icon:"⚖️",text:"Patriot Act debate: national security vs civil liberties. Opponents argue it violates 4th Amendment protections. Same tension as Espionage Act (WWI) and Japanese internment (WWII)."},
+      {icon:"📉",text:"Trust in government hits 19% by 2015. Polarization. The pattern: crisis → government expands → backlash → distrust → conservatism. Has repeated since the 1960s."}
     ],
-    tip: "The AP loves connecting modern events to historical patterns. 9/11 → Patriot Act mirrors WWI → Espionage Act. Both involve government restricting civil liberties in the name of national security."
+    tip:"The AP loves connecting modern events to historical patterns. 9/11 → Patriot Act mirrors WWI → Espionage Act. Both involve government restricting civil liberties in the name of national security."
   }
 ];
 
 let done = new Set();
 let activeIdx = null;
 
-function render() {
-  const grid = document.getElementById('eraGrid');
-  const container = document.getElementById('cardContainer');
-  const complete = document.getElementById('completeScreen');
+function updateProgress() {
   const pct = Math.round((done.size / eras.length) * 100);
-  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = `${done.size} / ${eras.length}`;
+}
 
+function renderGrid() {
+  const grid = document.getElementById('eraGrid');
   grid.innerHTML = eras.map((e, i) => `
-    <div class="era-btn ${done.has(i) ? 'done' : ''} ${activeIdx === i ? 'active' : ''}" onclick="openEra(${i})">
-      <div class="era-btn-top">
-        <span class="era-dates">${e.dates}</span>
-        <span class="era-check">${done.has(i) ? '✅' : '○'}</span>
+    <div class="era-tile ${done.has(i) ? 'is-done' : ''} ${activeIdx === i ? 'is-active' : ''}"
+         style="--tile-color: ${e.color}; animation-delay: ${i * 0.03}s"
+         onclick="openEra(${i})">
+      <div class="tile-top">
+        <span class="tile-dates">${e.dates}</span>
+        <div class="tile-check">${done.has(i) ? '✓' : ''}</div>
       </div>
-      <div class="era-name">${e.emoji} ${e.name}</div>
+      <span class="tile-emoji">${e.emoji}</span>
+      <div class="tile-name">${e.name}</div>
     </div>
   `).join('');
+}
+
+function renderCard() {
+  const wrap = document.getElementById('cardWrap');
+  const complete = document.getElementById('completeScreen');
 
   if (activeIdx === null) {
-    container.innerHTML = '';
-    if (done.size === eras.length) {
-      complete.classList.add('show');
-    }
+    wrap.innerHTML = '';
+    if (done.size === eras.length) { complete.classList.add('show'); }
+    else { complete.classList.remove('show'); }
     return;
   }
 
   complete.classList.remove('show');
   const e = eras[activeIdx];
-  container.innerHTML = `
-    <div class="card active" style="border-top: 3px solid ${e.color}">
+  const isLast = activeIdx === eras.length - 1;
+  const isDone = done.has(activeIdx);
+
+  wrap.innerHTML = `
+    <div class="era-card">
+      <div class="card-banner" style="background: ${e.color}"></div>
       <div class="card-header">
-        <div class="card-header-left">
-          <div class="card-era-dates" style="color:${e.color}">${e.dates}</div>
-          <div class="card-era-name">${e.name}</div>
+        <div>
+          <div class="card-dates" style="color: ${e.color}">${e.dates}</div>
+          <div class="card-title">${e.name}</div>
         </div>
-        <div class="card-emoji">${e.emoji}</div>
+        <div class="card-emoji-big">${e.emoji}</div>
       </div>
       <div class="card-body">
-        <div class="vibe" style="background:${e.vibeBg}; border-color:${e.color}; color:${e.color}">${e.vibe}</div>
+        <div class="vibe-block" style="border-color: ${e.color}">${e.vibe}</div>
         <div class="section-label">Key facts</div>
-        <div class="fact-list">${e.facts.map(f => `<div class="fact-item"><span class="fact-icon">${f.icon}</span><span>${f.text}</span></div>`).join('')}</div>
-        <div class="exam-tip"><strong>⚡ AP exam tip:</strong> ${e.tip}</div>
+        <div class="facts">
+          ${e.facts.map(f => `
+            <div class="fact">
+              <span class="fact-icon">${f.icon}</span>
+              <span class="fact-text">${f.text}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="tip-block">
+          <div class="tip-label">⚡ AP exam tip</div>
+          <div>${e.tip}</div>
+        </div>
       </div>
-      <div class="nav-row">
-        <button class="nav-btn" onclick="closeEra()" ${activeIdx === null ? 'disabled' : ''}>← Back</button>
-        <button class="nav-btn ${done.has(activeIdx) ? '' : 'done-btn'}" onclick="markDone(${activeIdx})">
-          ${done.has(activeIdx) ? 'Mark undone' : '✓ Got it'}
+      <div class="card-nav">
+        <button class="nav-btn" onclick="closeEra()">← Back</button>
+        <button class="nav-btn ${isDone ? 'undo-action' : 'done-action'}" onclick="toggleDone(${activeIdx})">
+          ${isDone ? 'Mark undone' : '✓ Got it'}
         </button>
-        ${activeIdx < eras.length - 1 ? `<button class="nav-btn primary" onclick="openEra(${activeIdx + 1})">Next →</button>` : `<button class="nav-btn primary" onclick="finishAll()">Finish 🎯</button>`}
+        ${isLast
+          ? `<button class="nav-btn primary" onclick="finishAll()">Finish 🎯</button>`
+          : `<button class="nav-btn primary" onclick="openEra(${activeIdx + 1})">Next →</button>`
+        }
       </div>
     </div>
   `;
-  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  setTimeout(() => {
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
+}
+
+function render() {
+  renderGrid();
+  renderCard();
+  updateProgress();
 }
 
 function openEra(i) {
@@ -441,7 +696,7 @@ function closeEra() {
   render();
 }
 
-function markDone(i) {
+function toggleDone(i) {
   if (done.has(i)) done.delete(i);
   else done.add(i);
   render();
